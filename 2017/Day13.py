@@ -1,16 +1,17 @@
-def severity(firewall, delay=0):
-    return sum(
-        ((k + delay) % (2 * v - 2) == 0) * k * v
+print(
+    sum(
+        (k % (2 * v - 2) == 0) * k * v
         for k, v in firewall.items()
     )
+)
 
 
-print(severity(firewall))
+def caught(firewall, delay=0):
+    return any((k + delay) % (2 * v - 2) == 0 for k, v in firewall.items())
+
 
 delay = 0
-x = severity(firewall, delay)
-while (x != 0) or (delay % (firewall[0] * 2 - 2) == 0):
+while caught(firewall, delay):
     delay += 1
-    x = severity(firewall, delay)
 
 print(delay)
