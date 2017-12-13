@@ -1,3 +1,7 @@
+s = open('Day13.txt').read()
+
+firewall = dict((map(int, line.split(': ')) for line in s.splitlines()))
+
 print(
     sum(
         (k % (2 * v - 2) == 0) * k * v
