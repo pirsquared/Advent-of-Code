@@ -22,7 +22,7 @@ def gB(value, k=None):
 
 def judge(t):
     a, b = t
-    c = 2 ** 16 - 1
+    c = 0xFFFF
     return (c & a) == (c & b)
 
 
