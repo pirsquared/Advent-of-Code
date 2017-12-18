@@ -67,8 +67,6 @@ jgz a -1
 set a 1
 jgz a -2"""
 
-parse(test_)
-
 assert logic_part1(parse(test_), defaultdict(int), deque()) == 4
 
 print(logic_part1(instructions, defaultdict(int), deque()))
