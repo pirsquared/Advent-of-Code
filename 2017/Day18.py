@@ -1,3 +1,4 @@
+from functools import partial
 from collections import deque, defaultdict
 import operator as op
 
@@ -98,14 +99,10 @@ def logic(instructions, register, stk_i, stk_o):
 
 
 def logic_part2():
-    registers = {
-        0: defaultdict(int, dict(p=0)),
-        1: defaultdict(int, dict(p=1))
-    }
-    stacks = {0: deque(), 1: deque()}
+    stk0, stk1 = deque(), deque()
 
-    prog1 = logic(instructions, registers[1], stacks[0], stacks[1])
-    prog0 = logic(instructions, registers[0], stacks[1], stacks[0])
+    prog1 = logic(instructions, defaultdict(int, {'p': 1}), stk0, stk1)
+    prog0 = logic(instructions, defaultdict(int, {'p': 0}), stk1, stk0)
 
     for t in prog1:
         try:
