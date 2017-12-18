@@ -34,8 +34,8 @@ def logic_part1(instructions, register, stk):
             register[args[0]] = get(register, args[1])
             position += 1
 
-        elif ins == 'rcv' and get(register, args[0]):
-            if stk:
+        elif ins == 'rcv':
+            if get(register, args[0]) and stk:
                 return stk.pop()
             else:
                 position += 1
@@ -55,6 +55,21 @@ def logic_part1(instructions, register, stk):
 
     return stk.pop()
 
+
+test_ = """set a 1
+add a 2
+mul a a
+mod a 5
+snd a
+set a 0
+rcv a
+jgz a -1
+set a 1
+jgz a -2"""
+
+parse(test_)
+
+assert logic_part1(parse(test_), defaultdict(int), deque()) == 4
 
 print(logic_part1(instructions, defaultdict(int), deque()))
 
