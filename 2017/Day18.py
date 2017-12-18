@@ -56,7 +56,7 @@ def logic_part1(instructions, register, stk):
     return stk.pop()
 
 
-print(logic1(instructions, defaultdict(int), deque()))
+print(logic_part1(instructions, defaultdict(int), deque()))
 
 
 def logic(instructions, register, stk_i, stk_o):
