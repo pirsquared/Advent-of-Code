@@ -1,5 +1,6 @@
 import numpy as np
 from itertools import islice, count
+from string import ascii_uppercase
 
 
 def alt_dirs(d):
