@@ -3,6 +3,10 @@ import numpy as np
 
 
 def Day20(inp):
+    """this alternate approach evaluates pairwise acceleration.
+    once pairwise acceleration is positive relative to all others,
+    we can consider particle clear from any future collisions.
+    """
     s = pd.Series(inp.splitlines())
     data = s.str.extractall('(-?\d+)')[0].unstack().values
 
