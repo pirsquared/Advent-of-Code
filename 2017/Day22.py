@@ -14,23 +14,27 @@ def parse(inp):
 def init(a):
     n, m = map(lambda x: x // 2, a.shape)
     state = defaultdict(lambda: 1 + 0j)
-    for i, j in zip(*np.where(a)):
-        state[i + j * 1j - (n + m * 1j)] = -1 + 0j
+    for y, x in zip(*np.where(a)):
+        state[y + x * 1j - (n + m * 1j)] = -1 + 0j
 
     return state
 
 
-def infect(inp, c, limit):
-    s = init(parse(inp))
-    p, d, i = 0j, -1 + 0j, 0
+def infect(inp, change, max_bursts):
+    state = init(parse(inp))
+    position     =  0 + 0j
+    direction    = -1 + 0j
+    num_infected =  0
+    turn_left    =  0 + 1j
+    infected     = -1 + 0j
 
-    for b in range(limit):
-        d *= s[p] * 1j
-        s[p] *= c
-        i += s[p] == -1 + 0j
-        p += d
+    for burst in range(max_bursts):
+        direction       *= state[position] * turn_left
+        state[position] *= change
+        num_infected    += state[position] == infected
+        position        += direction
 
-    return i
+    return num_infected
 
 
 inp = open('Day22.txt').read()
