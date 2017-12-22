@@ -1,4 +1,5 @@
 from collections import defaultdict
+from itertools import islice, count
 import numpy as np
 
 
@@ -20,39 +21,30 @@ def init(a):
     return state
 
 
-def infect(inp, c=-1):
+def infect(inp, c, limit):
     s = init(parse(inp))
+    p, d, i = 0j, -1 + 0j, 0
 
-    p, d, b, i = 0j, -1 + 0j, 0, 0
-
-    while True:
-        b += 1
+    for b in range(limit):
         d *= s[p] * 1j
         s[p] *= c
         i += s[p] == -1 + 0j
         p += d
 
-        yield i, b
-
-
-def severity(inp, c, bursts):
-    v, b = infect(inp, c), 0
-    while b < bursts:
-        i, b = next(v)
     return i
 
 
 inp = open('Day22.txt').read()
 tnp = '..#\n#..\n...'
 
-assert severity(tnp, -1, 7) == 5
-assert severity(tnp, -1, 70) == 41
-assert severity(tnp, -1, 10_000) == 5587
-assert severity(tnp, -1j, 100) == 26
-assert severity(tnp, -1j, 10_000_000) == 2511944
+assert infect(tnp, -1, 7) == 5
+assert infect(tnp, -1, 70) == 41
+assert infect(tnp, -1, 10_000) == 5587
+assert infect(tnp, -1j, 100) == 26
+assert infect(tnp, -1j, 10_000_000) == 2511944
 
-print(severity(inp, -1, 10_000))
-print(severity(inp, -1j, 10_000_000))
+print(infect(inp, -1, 10_000))
+print(infect(inp, -1j, 10_000_000))
 
 # 5411
 # 2511416
